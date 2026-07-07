@@ -98,9 +98,10 @@ video.bg-video::-webkit-media-controls-enclosure {
 }
 
 /* Bottom-anchored image variant (used by /3): pins the bottom edge of the
-   image at every width, so resizing reveals/crops at the top and sides.
-   Declared after the media queries so it overrides their background-position;
-   `center bottom` also handles horizontal centering, replacing -center. */
-.bg-layer-image-bottom {
+   image at every width while staying horizontally centered, so resizing
+   reveals/crops at the top and sides. The compound selector outranks the
+   single-class `.bg-layer-image` breakpoint rules (specificity 0,2,0 vs
+   0,1,0), so it wins at all widths regardless of source order. */
+.bg-layer-image.bg-layer-image-bottom {
   background-position: center bottom;
 }
