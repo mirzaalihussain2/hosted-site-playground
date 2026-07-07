@@ -4,6 +4,7 @@ import Link from "next/link";
 const testPages = [
   { href: "/1", description: "Cropped image of Copenhagen, top-half crop." },
   { href: "/2", description: "Cropped image of Copenhagen, middle crop." },
+  { href: "/3", description: "Cropped image of Copenhagen, middle-three crop." },
 ];
 
 export default function Playground() {

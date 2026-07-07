@@ -11,11 +11,17 @@ import { SiteShell } from "./site-shell";
  * day/night video background is replaced by a single static image, and the
  * theme toggle is removed (so there is no day↔night rotation).
  */
-export function ImagePage({ image }: { image: string }) {
+export function ImagePage({
+  image,
+  anchor,
+}: {
+  image: string;
+  anchor?: "center" | "bottom";
+}) {
   return (
     <SiteReadyProvider>
       <div className="relative h-dvh overflow-hidden">
-        <ImageBackground image={image} />
+        <ImageBackground image={image} anchor={anchor} />
         <LoadingScreen />
         <SiteShell showThemeToggle={false} />
       </div>

@@ -19,8 +19,17 @@ import { useSiteReady } from "./site-ready-provider";
  * Rendering reuses the shared `.bg-layer-image` rules in `app/globals.css`
  * (full-bleed, `cover`, centered, with a slight right shift on mobile).
  */
-export function ImageBackground({ image }: { image: string }) {
+export function ImageBackground({
+  image,
+  anchor = "center",
+}: {
+  image: string;
+  anchor?: "center" | "bottom";
+}) {
   const { setSiteReady } = useSiteReady();
+
+  const anchorClass =
+    anchor === "bottom" ? "bg-layer-image-bottom" : "bg-layer-image-center";
 
   // Emitted into the document head from the initial render, before hydration.
   preload(image, { as: "image" });
@@ -49,7 +58,7 @@ export function ImageBackground({ image }: { image: string }) {
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black"
     >
       <div
-        className="bg-layer-image bg-layer-image-center"
+        className={`bg-layer-image ${anchorClass}`}
         style={{ backgroundImage: `url(${image})` }}
       />
     </div>
