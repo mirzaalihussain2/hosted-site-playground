@@ -22,7 +22,7 @@ const slideLeft = {
   exit: { x: "-100%" },
 };
 
-export function SiteShell() {
+export function SiteShell({ showThemeToggle = true }: { showThemeToggle?: boolean }) {
   const { isSiteReady } = useSiteReady();
   const [view, setView] = useState<View>("header");
 
@@ -31,21 +31,23 @@ export function SiteShell() {
 
   return (
     <>
-      <AnimatePresence>
-        {isSiteReady && (
-          <motion.div
-            key="theme-toggle"
-            className="pointer-events-none fixed top-4 right-4 z-30 sm:top-8 sm:right-8"
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={spring}
-          >
-            <div className="pointer-events-auto origin-top-right scale-[0.72] sm:scale-100">
-              <ThemeToggle />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {showThemeToggle && (
+        <AnimatePresence>
+          {isSiteReady && (
+            <motion.div
+              key="theme-toggle"
+              className="pointer-events-none fixed top-4 right-4 z-30 sm:top-8 sm:right-8"
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={spring}
+            >
+              <div className="pointer-events-auto origin-top-right scale-[0.72] sm:scale-100">
+                <ThemeToggle />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
 
       <AnimatePresence initial={false}>
         {isSiteReady && view === "header" ? (
