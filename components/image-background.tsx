@@ -49,7 +49,7 @@ export function ImageBackground({ image }: { image: string }) {
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black"
     >
       <div
-        className="bg-layer-image"
+        className="bg-layer-image bg-layer-image-center"
         style={{ backgroundImage: `url(${image})` }}
       />
     </div>

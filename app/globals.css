@@ -51,6 +51,13 @@ video.bg-video::-webkit-media-controls-enclosure {
     background-position: calc(100% + var(--bg-mobile-shift)) center;
   }
 
+  /* Playground image pages (/1, /2): keep the horizontal middle of the image
+     in frame on narrow screens, instead of the right-shifted crop the main
+     page uses. */
+  .bg-layer-image-center {
+    background-position: center center;
+  }
+
   .bg-layer-video-wrap {
     position: absolute;
     inset: 0;
