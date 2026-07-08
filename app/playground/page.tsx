@@ -6,6 +6,7 @@ const testPages = [
   { href: "/2", description: "Cropped image of Copenhagen, middle crop." },
   { href: "/3", description: "Cropped image of Copenhagen, middle-three crop." },
   { href: "/4", description: "Cropped image of Copenhagen, bottom crop." },
+  { href: "/hires", description: "Index page clone using the 4K images and videos." },
 ];
 
 export default function Playground() {

@@ -5,11 +5,11 @@ import { SiteReadyProvider } from "./site-ready-provider";
 import { SiteShell } from "./site-shell";
 import { ThemeBackground } from "./theme-background";
 
-export function HomePage() {
+export function HomePage({ basePath }: { basePath?: string }) {
   return (
     <SiteReadyProvider>
       <div className="relative h-dvh overflow-hidden">
-        <ThemeBackground />
+        <ThemeBackground basePath={basePath} />
         <LoadingScreen />
         <SiteShell />
       </div>

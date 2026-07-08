@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { preload } from "react-dom";
 import { useSiteReady } from "./site-ready-provider";
 import { useTheme } from "./theme-provider";
 
@@ -49,7 +50,23 @@ function useVideoReady(videoRef: React.RefObject<HTMLVideoElement | null>) {
   return ready;
 }
 
-export function ThemeBackground() {
+export function ThemeBackground({ basePath = "/original" }: { basePath?: string }) {
+  const dayImage = `${basePath}/day_final.png`;
+  const nightImage = `${basePath}/night_final.png`;
+  const dayVideo = `${basePath}/daytime_vid.mp4`;
+  const sunsetVideo = `${basePath}/sunset_final.mp4`;
+  const nightVideo = `${basePath}/nighttime_vid.mp4`;
+  const sunriseVideo = `${basePath}/sunrise_final.mp4`;
+
+  // Preload the day poster and all four videos before hydration — replaces the
+  // static <link rel="preload"> hints that used to live in app/layout.tsx,
+  // scoped to whichever asset set (basePath) this page actually uses.
+  preload(dayImage, { as: "image" });
+  preload(dayVideo, { as: "video" });
+  preload(sunsetVideo, { as: "video" });
+  preload(sunriseVideo, { as: "video" });
+  preload(nightVideo, { as: "video" });
+
   const { theme, setThemeTransitionActive } = useTheme();
   const { isSiteReady, setSiteReady } = useSiteReady();
   const isDark = theme === "dark";
@@ -366,19 +383,19 @@ export function ThemeBackground() {
       {showLoadingPoster && (
         <div
           className={imageLayerClass}
-          style={{ backgroundImage: "url(/day_final.png)" }}
+          style={{ backgroundImage: `url(${dayImage})` }}
         />
       )}
       <div
         className={`${imageLayerClass} ${
           showDayPoster && sunriseToLight ? instantClass : fadeClass
         } ${showDayPoster ? "opacity-100" : "opacity-0"}`}
-        style={{ backgroundImage: "url(/day_final.png)" }}
+        style={{ backgroundImage: `url(${dayImage})` }}
       />
       <div className={videoWrapClass}>
         <video
           ref={dayVideoRef}
-          src="/daytime_vid.mp4"
+          src={dayVideo}
           {...videoProps}
           className={`bg-video ${instantClass} ${blurInClass} ${
             dayVideoSharp ? "blur-0" : "blur-md"
@@ -388,7 +405,7 @@ export function ThemeBackground() {
       <div className={videoWrapClass}>
         <video
           ref={sunsetVideoRef}
-          src="/sunset_final.mp4"
+          src={sunsetVideo}
           {...videoProps}
           className={`bg-video ${sunsetTransitionClass} ${
             showSunset ? "opacity-100" : "opacity-0"
@@ -399,12 +416,12 @@ export function ThemeBackground() {
         className={`${imageLayerClass} ${
           showNightPoster ? "opacity-100" : "opacity-0"
         } ${showNightPoster ? instantClass : fadeClass}`}
-        style={{ backgroundImage: "url(/night_final.png)" }}
+        style={{ backgroundImage: `url(${nightImage})` }}
       />
       <div className={videoWrapClass}>
         <video
           ref={nightVideoRef}
-          src="/nighttime_vid.mp4"
+          src={nightVideo}
           {...videoProps}
           className={`bg-video ${instantClass} ${
             showNightVideo ? "opacity-100" : "opacity-0"
@@ -414,7 +431,7 @@ export function ThemeBackground() {
       <div className={videoWrapClass}>
         <video
           ref={sunriseVideoRef}
-          src="/sunrise_final.mp4"
+          src={sunriseVideo}
           {...videoProps}
           className={`bg-video ${sunriseTransitionClass} ${
             showSunrise ? "opacity-100" : "opacity-0"

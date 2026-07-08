@@ -16,12 +16,12 @@ export const metadata: Metadata = {
   description: "Personal website of Ben Piggin",
   icons: {
     icon: [
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/original/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/original/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: "/apple-touch-icon.png",
+    apple: "/original/apple-touch-icon.png",
   },
-  manifest: "/site.webmanifest",
+  manifest: "/original/site.webmanifest",
 };
 
 const themeScript = `
@@ -43,13 +43,6 @@ export default function RootLayout({
       className={`${vercetti.variable} ${vercetti.className} h-dvh select-none overflow-hidden antialiased`}
       suppressHydrationWarning
     >
-      <head>
-        <link rel="preload" href="/day_final.png" as="image" />
-        <link rel="preload" href="/daytime_vid.mp4" as="video" type="video/mp4" />
-        <link rel="preload" href="/sunset_final.mp4" as="video" type="video/mp4" />
-        <link rel="preload" href="/sunrise_final.mp4" as="video" type="video/mp4" />
-        <link rel="preload" href="/nighttime_vid.mp4" as="video" type="video/mp4" />
-      </head>
       <body className="h-dvh overflow-hidden font-sans">
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <ThemeProvider>{children}</ThemeProvider>
